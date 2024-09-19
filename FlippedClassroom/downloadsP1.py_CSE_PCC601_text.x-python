@@ -1,0 +1,14 @@
+import math
+A={1,2,3,4,5,6,7,8,9}
+B=input("Enter a set")
+for i in range(10):
+    if A==B:
+        print("Intersection of A and B is:")
+    else:
+        print("There is no intersection of elements in A and B:"):
+print("Union of two sets A and B is:" A+B)
+C=input("Enter a set")
+    if C(contains elements of A):
+        print("C is a subset of A!")
+    else:
+        print("C is not a subset of A.")

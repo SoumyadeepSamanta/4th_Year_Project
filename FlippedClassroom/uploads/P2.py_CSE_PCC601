@@ -1,0 +1,10 @@
+import math
+A=input("Enter a sequence of numbers:")
+for i<n, i+1:
+    print("Sum of all numbers entered by the user is:")
+A=A.string
+A.max=A
+print("maxList is:")
+A=A.split
+A.split=A.sum
+print("sumList is:")

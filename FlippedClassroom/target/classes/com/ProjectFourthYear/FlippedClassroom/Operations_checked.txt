@@ -1,0 +1,73 @@
+REGISTER SUBJECTS:  http://127.0.0.1:8080/admin/register/subjects
+
+{
+    "subject_id":{
+        "subid":"PCC601",
+        "department":"IT"
+    },
+    "name":"CD",
+    "semester":7
+}
+
+
+REGISTER TEACHER: http://127.0.0.1:8080/admin/register/teachers
+
+{
+    "tid":"T678",
+    "name":"KB",
+    "email":"dc@gmail.com",
+    "department":"CSE",
+    "phone_number":1234567890,
+    "password":"hello",
+    "subjects": [
+        {
+            "subject_id": {
+                "subid": "PEC1234",
+                "department": "IT"
+            }
+
+        }
+    ]
+
+}
+REGISTER STUDENTS:  http://127.0.0.1:8080/admin/register/students
+
+{
+    "sid": "S12345",
+    "name": "John Doe",
+    "department": "IT",
+    "year": 4,
+    "semester": 8,
+    "email": "johndoe@example.com",
+    "phone_number": 9876543210,
+    "birthdate": "2000-01-01",
+    "password": "securePassword123",
+    "subjects": [
+        {
+            "subject_id": {
+                "subid": "PCC601",
+                "department": "IT"
+            }
+        }
+    ]
+}
+
+
+REGISTER MATERIALS:  http://127.0.0.1:8080/teachers/PEC9000/materials                 //not yet checked on the updated code
+
+{
+    "material_name":"hello",
+    "subject_id":"PEC9000"
+}
+
+
+FETCH SUBJECTS OF A PARTICULAR STUDENT: http://127.0.0.1:8080/students/22011/subjects
+
+
+FETCH SUBJECTS OF A PARTICULAR TEACHER: http://127.0.0.1:8080/teachers/T011/subjects  
+
+
+
+
+
+

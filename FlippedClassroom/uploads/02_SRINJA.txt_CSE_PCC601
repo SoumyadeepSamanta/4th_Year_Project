@@ -1,0 +1,46 @@
+create table EMP_02(
+EMP_NO number (2) primary key,
+EMP_NAME varchar2(30),
+JOB varchar2(20),
+MGR number (2),
+HIREDATE date,
+SAL number (10),
+COMMISSION number (6),
+DEPTNO number (2) foreign key references DEPT_02(DEPTNO)
+);
+
+
+
+create table DEPT_02(
+DEPTNO number (2) primary key,
+DNAME varchar2 (20),
+LOC varchar2(20)
+);
+
+
+INSERT INTO EMP_02 VALUES (02, 'Srinja', 'CLERK', 10, '02-02-2020', 50000, 0, 30);
+
+
+INSERT INTO DEPT_02 VALUES (30,'Admin','Kolkata');
+
+1)
+Select EMP_NAME from EMP_02 where DEPTNO = (Select DEPTNO from DEPT_02 where DNAME = 'HRD' and LOC = 'Kolkata') order by HIREDATE DESC LIMIT 1;
+
+2)
+Select DEPTNO, COUNT(*) as EMP_COUNT from EMP_02 group by DEPTNO;
+
+3)
+Select EMP_NAME from EMP_02 where DEPTNO where DEPTNO = 20 and SAL > (Select avg(SAL) from EMP_02 where DEPTNO = 10);
+
+4)
+Select * from DEPT_02 where DEPTNO = (Select DEPTNO from EMP_02 group by DEPTNO order by COUNT(*) DESC LIMIT 1);
+
+5)
+Select EMP_NAME, DEPTNO, SAL, COMMISSION from EMP_02 where SAL between 2000 and 5000 AND DEPTNO = (Select DEPTNO from DEPT_02 where LOC = 'Kolkata');
+
+6)
+Select d.DNAME from DEPT_02 d JOIN EMP_02 e on d.DEPTNO = e.DEPTNO group by d.DNAME having COUNT(*)>=3;
+
+
+
+
