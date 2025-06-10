@@ -10,7 +10,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinColumns;
+// import jakarta.persistence.JoinColumns;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.Email;
@@ -28,22 +28,22 @@ public class Student {
     
     @Id
     private String sid;
-    private String name;
+    private LocalDate birthdate;
     private String department;
-    private int year;
-    private int semester;
-    
     @Email(message = "Invalid email")
     private String email;
-    
-    private Long phone_number;
-    private LocalDate birthdate;
+    private String name;
     private String password;
+    private Long phone_number;
+    private int semester;
+    private int year;
+    
     
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
         name = "student_subjects",
-        joinColumns = @JoinColumn(name = "student_sid", referencedColumnName = "sid"),
+        joinColumns = @JoinColumn(name = "student_sid"),
+
         inverseJoinColumns = {
             @JoinColumn(name = "subjects_subid", referencedColumnName = "subid"),
             @JoinColumn(name = "department", referencedColumnName = "department")

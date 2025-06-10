@@ -15,5 +15,6 @@ public class Subject_Student_DTO {
     private String subject_name;
     private String department;
     private String teacher_name;
+    private String student_id;
 }
 

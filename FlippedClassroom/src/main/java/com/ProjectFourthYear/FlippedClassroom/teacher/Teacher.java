@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ProjectFourthYear.FlippedClassroom.subjects.Subject;
+import com.ProjectFourthYear.FlippedClassroom.subjects.Subject_ID;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -13,7 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 // import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+// import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -47,6 +48,7 @@ public class Teacher {
 
 	)
 	private List<Subject> subjects=new ArrayList<>();
+
 	
 	
 		

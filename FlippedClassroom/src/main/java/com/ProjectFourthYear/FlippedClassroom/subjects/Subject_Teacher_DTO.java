@@ -14,7 +14,7 @@ public class Subject_Teacher_DTO{
 
     private String subject_id;
     private String subject_name;
-
     private String department;
     private int semester;
+    private String teacher_name;
 }

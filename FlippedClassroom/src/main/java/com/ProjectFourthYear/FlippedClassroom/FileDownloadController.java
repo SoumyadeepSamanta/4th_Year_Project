@@ -21,7 +21,7 @@ import java.nio.file.Paths;
 public class FileDownloadController {
 
     // Specify the directory where files should be saved before downloading
-    private static final String DOWNLOAD_DIRECTORY = "C:/Users/PROJ - 11/Desktop/PROJ-09/4th_Year_Project/FlippedClassroom/src/main/java/com/Downloads/";
+    private static final String DOWNLOAD_DIRECTORY = "downloads";
 
     @GetMapping("/download")
     public ResponseEntity<Resource> downloadFile(@RequestParam String filePath) throws IOException {
@@ -48,15 +48,21 @@ public class FileDownloadController {
         // Prepare the file for download
         InputStreamResource resource = new InputStreamResource(new FileInputStream(targetPath.toFile()));
 
-        // Set headers to indicate file type and attachment
+        // Set headers to indicate file type and inline content disposition
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + sourceFile.getName());
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + sourceFile.getName());  // 'inline' for display in browser
 
-        // Return the file as a response entity
+        // Get the MIME type of the file dynamically
+        String mimeType = Files.probeContentType(targetPath);
+        if (mimeType == null) {
+            mimeType = MediaType.APPLICATION_OCTET_STREAM_VALUE; // Default to binary stream if MIME type is unknown
+        }
+
+        // Return the file as a response entity with proper headers to open in the browser
         return ResponseEntity.ok()
                 .headers(headers)
                 .contentLength(targetPath.toFile().length())
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .contentType(MediaType.parseMediaType(mimeType)) // Dynamically set the content type
                 .body(resource);
     }
 }

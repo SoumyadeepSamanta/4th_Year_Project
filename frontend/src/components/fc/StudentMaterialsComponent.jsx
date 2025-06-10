@@ -16,29 +16,29 @@ export default function StudentMaterialsComponent() {
     //     {id:3, name:"Operating Systems",date}     
     // ]
 
-    const { subject_id, department } = useParams()
+    const {  department,subject_id } = useParams()
     const [materials, setMaterials] = useState([])
 
     useEffect(() => {
         refreshMaterials()
-    }, [subject_id, department])
+    }, [ department,subject_id])
     
     function refreshMaterials() {
-        retrieveAllMaterialsForStudentIdApi(subject_id, department)
+        retrieveAllMaterialsForStudentIdApi( department,subject_id)
             .then(response => {
                 console.log(response)
                 setMaterials(response.data)
             })
             .catch(error => console.log(error))
     }
-
+  
+    setInterval(refreshMaterials,1000);
     return(
 
         <div className="container">
             <HeaderComponent></HeaderComponent>
             <h3>Name: </h3>
             <div></div>
-            <button className="btn btn-success m-3" type="button">Add New</button>
                 <table className='table'>
                     <thead>
                         <tr>
@@ -51,17 +51,13 @@ export default function StudentMaterialsComponent() {
                         {
                             materials.map(
                                 material=>
-//                                     <a href="/download?filePath=C:/Users/ratul/Desktop/Mindtree/College_ID.pdf">
-//     {{ material.material_name }}
-//   </a>`${part1} ${part2}`
                                     <tr>
                                         <td>
-                                            <a href={`http://localhost:8080/download?filePath=${encodeURIComponent(material.material_path)}`}>
+                                            <a href={`http://localhost:8090/download?filePath=${encodeURIComponent(material.material_path)}`} target='_blank' rel="noreferrer">
                                                 {material.material_name}
                                             </a>
                                         </td>
-                                        <td>{new Date(material.upload_time).toDateString()}</td>
-                                        <td><button className="btn btn-danger" type="button">Delete</button></td>
+                                        <td>{(material.upload_time).toString()}</td>
                                     </tr>
                             )
                         }

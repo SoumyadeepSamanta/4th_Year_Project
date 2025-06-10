@@ -2,7 +2,7 @@ package com.ProjectFourthYear.FlippedClassroom.subjects;
 
 import java.util.List;
 
-import com.ProjectFourthYear.FlippedClassroom.teacher.Material;
+import com.ProjectFourthYear.FlippedClassroom.Materials.Material;
 
 import java.util.ArrayList;
 
@@ -25,6 +25,7 @@ import lombok.ToString;
 @Entity
 public class Subject {
 
+   
     @EmbeddedId
     private Subject_ID subject_id;
 

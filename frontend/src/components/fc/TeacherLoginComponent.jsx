@@ -23,16 +23,18 @@ export default function TeacherLoginComponent() {
     }
 
     async function handleSubmit() {
-        if(await authContext.login(username, password)){
-            navigate(`/teacher/${username}`)
+        const success = await authContext.login(username, password); // Wait for login result
+ 
+        if (success) {
+            navigate(`/teacher/${username}`);
         } else {
-            setShowErrorMessage(true)
+            setShowErrorMessage(true);
         }
     }
 
     return (
         <div className="Login">
-            <h1>Login Mofo!</h1>
+            <h1>Login</h1>
             {showErrorMessage && <div className="errorMessage">Authentication Failed. 
                                                             Please check your credentials.</div>}
             <div className="LoginForm">

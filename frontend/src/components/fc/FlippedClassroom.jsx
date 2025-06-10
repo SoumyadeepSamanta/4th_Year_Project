@@ -10,7 +10,13 @@ import AdminHomeComponent from './AdminHomeComponent'
 import AuthProvider, { useAuth } from './security/AuthContext'
 import LogoutComponent from './LogoutComponent'
 import TeacherMaterialsComponent from './TeacherMaterialsComponent'
+import TeacherAssignmentsComponent from './TeacherAssignmentComponent'
 import StudentMaterialsComponent from './StudentMaterialsComponent'
+import StudentAssignmentComponent from './StudentAssignmentComponent'
+import TeacherSubmissionComponent from './TeacherSubmissionComponent'
+import TeacherListStudentsComponent from './TeacherListStudentsComponent'
+import SubjectChatroom from './SubjectChatroom'
+import Chatroom from './ChatRoom'
 
 export default function FlippedClassroom() {
 
@@ -36,7 +42,12 @@ export default function FlippedClassroom() {
                     <Route path='/student/:username' element={<AuthenticatedRoute><StudentHomeComponent></StudentHomeComponent></AuthenticatedRoute>}></Route>
                     <Route path='/teacher/:username' element={<AuthenticatedRoute><TeacherHomeComponent></TeacherHomeComponent></AuthenticatedRoute>}></Route>
                     <Route path='/teacher/:subject_id/:department/materials' element={<AuthenticatedRoute><TeacherMaterialsComponent></TeacherMaterialsComponent></AuthenticatedRoute>}></Route>
+                    <Route path='/teacher/:subject_id/:department/assignments' element={<AuthenticatedRoute><TeacherAssignmentsComponent></TeacherAssignmentsComponent></AuthenticatedRoute>}></Route>
                     <Route path='/student/:subject_id/:department/materials' element={<AuthenticatedRoute><StudentMaterialsComponent></StudentMaterialsComponent></AuthenticatedRoute>}></Route>
+                    <Route path='/student/:subject_id/:department/assignments' element={<AuthenticatedRoute><StudentAssignmentComponent></StudentAssignmentComponent></AuthenticatedRoute>}></Route>
+                    <Route path='/teacher/:assignment_id/submissions' element={<AuthenticatedRoute><TeacherSubmissionComponent></TeacherSubmissionComponent></AuthenticatedRoute>}></Route>
+                    <Route path='/teacher/:username/:subject_id/:department/students' element={<AuthenticatedRoute><TeacherListStudentsComponent></TeacherListStudentsComponent></AuthenticatedRoute>}></Route>
+                    <Route path='/:subject_id/:department/chat' element={<AuthenticatedRoute><SubjectChatroom></SubjectChatroom></AuthenticatedRoute>}> </Route>
                     <Route path='/admin' element={<AuthenticatedRoute><AdminHomeComponent></AdminHomeComponent></AuthenticatedRoute>}></Route>
                     <Route path='/logout' element={<AuthenticatedRoute><LogoutComponent></LogoutComponent></AuthenticatedRoute>}></Route>
                 </Routes>
