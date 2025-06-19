@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 // import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +13,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.ProjectFourthYear.FlippedClassroom.Helper.ExcelHelperSubject;
+import com.ProjectFourthYear.FlippedClassroom.message.ResponseMessage;
 import com.ProjectFourthYear.FlippedClassroom.student.Student;
 import com.ProjectFourthYear.FlippedClassroom.student.StudentRepository;
+// import com.ProjectFourthYear.FlippedClassroom.student.StudentService;
 import com.ProjectFourthYear.FlippedClassroom.subjects.Subject;
+import com.ProjectFourthYear.FlippedClassroom.subjects.SubjectService;
 import com.ProjectFourthYear.FlippedClassroom.subjects.SubjectRepository;
 import com.ProjectFourthYear.FlippedClassroom.teacher.Teacher;
 import com.ProjectFourthYear.FlippedClassroom.teacher.TeacherRepository;
@@ -26,6 +33,9 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
+
+    @Autowired
+    private SubjectService subjectService;
 
     @Autowired
     private StudentRepository studentRepository;
@@ -67,9 +77,27 @@ public class AdminController {
     }
     
     @PostMapping("/register/subjects")
-    public ResponseEntity<Subject> saveSubject(@Valid @RequestBody Subject subject) {
-        Subject savedSubject = subjectRepository.save(subject);
-        return ResponseEntity.ok(savedSubject);
+    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
+        String message = "";
+
+        if (file == null || file.isEmpty()) {
+            message = "No file uploaded!";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message));
+        }
+
+        if (!ExcelHelperSubject.hasExcelFormat(file)) {
+            message = "Please upload an Excel file!";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message));
+        }
+
+        try {
+            subjectService.save(file);
+            message = "Uploaded the file successfully: " + file.getOriginalFilename();
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+        } catch (Exception e) {
+            message = "Could not upload the file: " + file.getOriginalFilename() + "!"+e;
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+        }
     }
     
     @PutMapping("/update/students/{id}")
